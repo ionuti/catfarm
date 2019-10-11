@@ -21,3 +21,4 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     $router->get('/cat/{id}/status', 'CatController@status');
 
 });
+$router->get('/', 'CatController@index');
