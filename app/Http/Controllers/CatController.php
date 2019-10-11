@@ -190,4 +190,30 @@ class CatController extends Controller
         return response()->json($response);
 
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function status($id)
+    {
+        $response['request_id'] = Str::uuid();
+        try {
+            $cat = Cat::find($id);
+            $response['status'] = 200;
+            $response['error'] = false;
+            $status = [
+                'status' => $cat->status,
+                'readable_status' => Cat::STATUS_TRANSLATIONS[$cat->status],
+            ];
+            $response['data']['status'] = $status;
+        } catch (\Exception $exception) {
+            $response['status'] = $exception->getCode();
+            $response['error'] = $exception->getMessage();
+            $response['data'] = [];
+            Log::critical(__METHOD__, $response);
+        }
+
+        return response()->json($response);
+    }
 }

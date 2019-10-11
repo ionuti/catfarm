@@ -18,4 +18,6 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     $router->put('/cat/{id}', 'CatController@update');
     $router->put('/cat/{id}/feed', 'CatController@feed');
     $router->delete('/cat/{id}', 'CatController@destroy');
+    $router->get('/cat/{id}/status', 'CatController@status');
+
 });
